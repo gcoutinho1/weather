@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:weather/services/location.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({Key? key}) : super(key: key);
@@ -7,24 +7,14 @@ class LoadingScreen extends StatefulWidget {
   @override
   State<LoadingScreen> createState() => _LoadingScreenState();
 }
-/// https://pub.dev/packages/geolocator
-LocationPermission? permission;
-
-void getLocation() async {
-  permission = await Geolocator.checkPermission();
-  if (permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-    
-  }
-  if (permission == LocationPermission.deniedForever) {
-    return Future.error(
-        'Location permissions are permanently denied, we cannot request permissions.');
-  }
-  Position position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high);
-}
 
 class _LoadingScreenState extends State<LoadingScreen> {
+  @override
+  void initState() {
+    getLocation();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,8 +23,15 @@ class _LoadingScreenState extends State<LoadingScreen> {
             onPressed: () {
               getLocation();
             },
-            child: Text('Get Location')),
+            child: Text('Sua localização')),
       ),
     );
+  }
+
+  void getLocation() async {
+    Location location = Location();
+    await location.getCurrentLocation();
+    // print(location.latitude);
+    // print(location.longitude);
   }
 }
