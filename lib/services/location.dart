@@ -24,7 +24,3 @@ class Location {
     }
   }
 }
-
-// int weatherDescription = jsonDecode(data)['weather'][0]['id'];
-// double tempDescription = jsonDecode(data)['main']['temp'];
-// String cityDescription = jsonDecode(data)['name'];

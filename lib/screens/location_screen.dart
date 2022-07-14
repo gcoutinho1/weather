@@ -4,11 +4,30 @@ import 'package:google_fonts/google_fonts.dart';
 import '../utils/constants.dart';
 
 class LocationScreen extends StatefulWidget {
+  final locationWeather;
+
+  const LocationScreen({Key? key, this.locationWeather}) : super(key: key);
   @override
   _LocationScreenState createState() => _LocationScreenState();
 }
 
 class _LocationScreenState extends State<LocationScreen> {
+  int? weatherDescription;
+  int? tempDescription;
+  String? cityDescription;
+  @override
+  void initState() {
+    super.initState();
+    updateUI(widget.locationWeather);
+  }
+
+  void updateUI(dynamic weatherData) {
+    weatherDescription = weatherData['weather'][0]['id'];
+    double? temp = weatherData['main']['temp'];
+    tempDescription = temp?.toInt();
+    cityDescription = weatherData['name'];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,31 +49,31 @@ class _LocationScreenState extends State<LocationScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  FlatButton(
-                    onPressed: () {},
-                    child: Icon(
+                  IconButton(
+                    icon: const Icon(
                       Icons.near_me,
-                      size: 50.0,
+                      size: 50,
                     ),
-                  ),
-                  FlatButton(
                     onPressed: () {},
-                    child: Icon(
+                  ),
+                  IconButton(
+                    icon: const Icon(
                       Icons.location_city,
-                      size: 50.0,
+                      size: 50,
                     ),
+                    onPressed: () {},
                   ),
                 ],
               ),
               Padding(
-                padding: EdgeInsets.only(left: 15.0),
+                padding: const EdgeInsets.only(left: 15),
                 child: Row(
                   children: <Widget>[
                     Text(
-                      '32°',
+                      '$tempDescription°',
                       style: GoogleFonts.roboto(fontSize: 100),
                     ),
-                    Text(
+                    const Text(
                       '☀️',
                       style: kConditionTextStyle,
                     ),
@@ -62,7 +81,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(right: 15.0),
+                padding: const EdgeInsets.only(right: 15),
                 child: Text(
                   "😇️ Calor em!",
                   textAlign: TextAlign.right,
