@@ -1,8 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:weather/services/location.dart';
+import 'package:weather/services/networking.dart';
+import 'package:weather/utils/api/api_key.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({Key? key}) : super(key: key);
@@ -12,10 +11,12 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
+  late double? latitude;
+  late double? longitude;
+
   @override
   void initState() {
-    getLocation();
-    getData();
+    getLocationData();
     super.initState();
   }
 
@@ -25,40 +26,23 @@ class _LoadingScreenState extends State<LoadingScreen> {
       body: Center(
         child: ElevatedButton(
             onPressed: () {
-              getLocation();
+              getLocationData();
             },
             child: Text('Sua localização')),
       ),
     );
   }
 
-  void getLocation() async {
+  void getLocationData() async {
     Location location = Location();
     await location.getCurrentLocation();
-    print(location.latitude);
-    print(location.longitude);
-  }
+    latitude = location.latitude;
+    longitude = location.longitude;
+    // print(location.latitude);
+    // print(location.longitude);
+    NetWorkHelper netWorkHelper = NetWorkHelper(
+        'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey');
 
-  void getData() async {
-    // var url = Uri.parse('https://samples.openweathermap.org/data/2.5/weather');
-    http.Response response = await http.get(Uri.parse(
-        'https://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=b6907d289e10d714a6e88b30761fae22'));
-
-    if (response.statusCode == 200) {
-      String data = response.body;
-
-      var longitude = jsonDecode(data)['coord']['lon'];
-      // print(longitude);
-
-      int weatherDescription = jsonDecode(data)['weather'][0]['id'];
-      double tempDescription = jsonDecode(data)['main']['temp'];
-      String cityDescription = jsonDecode(data)['name'];
-
-      print('cidade: $cityDescription');
-      print('temperatura: $tempDescription');
-      print('id: $weatherDescription');
-    } else {
-      print(response.statusCode);
-    }
+    var weatherData = await netWorkHelper.getData();
   }
 }

@@ -19,9 +19,12 @@ class Location {
           desiredAccuracy: LocationAccuracy.high);
       latitude = position.latitude;
       longitude = position.longitude;
-      
     } catch (exception) {
       print(exception);
     }
   }
 }
+
+// int weatherDescription = jsonDecode(data)['weather'][0]['id'];
+// double tempDescription = jsonDecode(data)['main']['temp'];
+// String cityDescription = jsonDecode(data)['name'];
