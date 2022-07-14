@@ -12,8 +12,8 @@ class NetWorkHelper {
 
     if (response.statusCode == 200) {
       String data = response.body;
-
-      var longitude = jsonDecode(data)['coord']['lon'];
+      var decodedData = jsonDecode(data);
+      return decodedData;
     } else {
       print(response.statusCode);
     }
