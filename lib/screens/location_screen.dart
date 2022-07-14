@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../utils/constants.dart';
 
 class LocationScreen extends StatefulWidget {
-  const LocationScreen({Key? key}) : super(key: key);
-
   @override
-  State<LocationScreen> createState() => _LocationScreenState();
+  _LocationScreenState createState() => _LocationScreenState();
 }
 
 class _LocationScreenState extends State<LocationScreen> {
@@ -12,47 +13,64 @@ class _LocationScreenState extends State<LocationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Icon(
-                    Icons.near_me,
-                    size: 50,
+        // decoration: BoxDecoration(
+        //   // image: DecorationImage(
+        //   //   image: AssetImage('images/location_background.jpg'),
+        //   //   fit: BoxFit.cover,
+        //   //   colorFilter: ColorFilter.mode(
+        //   //       Colors.white.withOpacity(0.8), BlendMode.dstATop),
+        //   // ),
+        // ),
+        // constraints: BoxConstraints.expand(),
+        child: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  FlatButton(
+                    onPressed: () {},
+                    child: Icon(
+                      Icons.near_me,
+                      size: 50.0,
+                    ),
                   ),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Icon(
-                    Icons.location_city,
-                    size: 50,
+                  FlatButton(
+                    onPressed: () {},
+                    child: Icon(
+                      Icons.location_city,
+                      size: 50.0,
+                    ),
                   ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 15),
-              child: Row(
-                children: [
-                  Text('32º'),
-                  Text('IconText'),
                 ],
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: 15),
-              child: Text(
-                'its time lalala',
-                textAlign: TextAlign.right,
+              Padding(
+                padding: EdgeInsets.only(left: 15.0),
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                      '32°',
+                      style: GoogleFonts.roboto(fontSize: 100),
+                    ),
+                    Text(
+                      '☀️',
+                      style: kConditionTextStyle,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              Padding(
+                padding: EdgeInsets.only(right: 15.0),
+                child: Text(
+                  "😇️ Calor em!",
+                  textAlign: TextAlign.right,
+                  style: GoogleFonts.roboto(fontSize: 60),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
