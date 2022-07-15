@@ -26,12 +26,21 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 
   void updateUI(dynamic weatherData) {
-    double? temp = weatherData['main']['temp'];
-    tempDescription = temp?.toInt();
-    cityDescription = weatherData['name'];
-    var condition = weatherData['weather'][0]['id'];
-    weatherIcon = weatherModel.getWeatherIcon(condition);
-    weatherMessage = weatherModel.getMessage(tempDescription);
+    setState(() {
+      if (weatherData == null) {
+        tempDescription = 0;
+        weatherIcon = '';
+        weatherMessage = 'Não foi possível acessar os dados';
+        cityDescription = '';
+        return;
+      }
+      double? temp = weatherData['main']['temp'];
+      tempDescription = temp?.toInt();
+      cityDescription = weatherData['name'];
+      var condition = weatherData['weather'][0]['id'];
+      weatherIcon = weatherModel.getWeatherIcon(condition);
+      weatherMessage = weatherModel.getMessage(tempDescription);
+    });
   }
 
   @override
@@ -60,7 +69,10 @@ class _LocationScreenState extends State<LocationScreen> {
                       Icons.near_me,
                       size: 50,
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      var weatherData = await weatherModel.getLocationWeather();
+                      updateUI(weatherData);
+                    },
                   ),
                   IconButton(
                     icon: const Icon(

@@ -15,7 +15,7 @@ class NetWorkHelper {
         String data = response.body;
         var decodedData = jsonDecode(data);
         return decodedData;
-      } else if (response.statusCode != 200) {
+      } else {
         print('Não foi possível se conectar a API ${response.statusCode}');
       }
     } catch (e) {
