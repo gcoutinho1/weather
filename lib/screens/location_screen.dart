@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:weather/screens/city_screen.dart';
 import 'package:weather/services/weather.dart';
 
 import '../utils/constants.dart';
@@ -79,7 +80,12 @@ class _LocationScreenState extends State<LocationScreen> {
                       Icons.location_city,
                       size: 50,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const CityScreen()));
+                    },
                   ),
                 ],
               ),
