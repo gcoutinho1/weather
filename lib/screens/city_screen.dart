@@ -10,6 +10,8 @@ class CityScreen extends StatefulWidget {
 }
 
 class _CityScreenState extends State<CityScreen> {
+  late String cityName;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,14 +44,17 @@ class _CityScreenState extends State<CityScreen> {
                   style: const TextStyle(color: Colors.black),
                   decoration: kTextFieldInput,
                   onChanged: (value) {
+                    cityName = value;
                     // print(value);
                   },
                 ),
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context, cityName);
+                },
                 child: Text(
-                  'Get Weather',
+                  'Obter previsão do tempo',
                   // style: kButtonTextStyle,
                 ),
               ),
