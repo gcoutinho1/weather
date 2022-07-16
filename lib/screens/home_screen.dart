@@ -5,15 +5,15 @@ import 'package:weather/services/weather.dart';
 
 import '../utils/constants.dart';
 
-class LocationScreen extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   final locationWeather;
 
-  const LocationScreen({Key? key, this.locationWeather}) : super(key: key);
+  const HomeScreen({Key? key, this.locationWeather}) : super(key: key);
   @override
-  _LocationScreenState createState() => _LocationScreenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _LocationScreenState extends State<LocationScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   late String weatherIcon;
   late String weatherMessage;
   int? tempDescription;
@@ -34,19 +34,36 @@ class _LocationScreenState extends State<LocationScreen> {
         weatherMessage = 'Não foi possível acessar os dados';
         cityDescription = '';
         return;
+      } else {
+        double? temp = weatherData['main']['temp'];
+        tempDescription = temp?.toInt();
+        cityDescription = weatherData['name'];
+        var condition = weatherData['weather'][0]['id'];
+        weatherIcon = weatherModel.getWeatherIcon(condition);
+        weatherMessage = weatherModel.getMessage(tempDescription);
       }
-      double? temp = weatherData['main']['temp'];
-      tempDescription = temp?.toInt();
-      cityDescription = weatherData['name'];
-      var condition = weatherData['weather'][0]['id'];
-      weatherIcon = weatherModel.getWeatherIcon(condition);
-      weatherMessage = weatherModel.getMessage(tempDescription);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // bottomNavigationBar: BottomNavigationBar(items: [
+      //   BottomNavigationBarItem(
+      //     icon: Icon(
+      //       Icons.near_me,
+      //       // size: 50,
+      //     ),
+      //     label: 'Update'
+      //   ),
+      //   BottomNavigationBarItem(
+      //     icon: Icon(
+      //       Icons.location_city,
+      //       // size: 50,
+      //     ),
+      //     label: 'Pesquisar'
+      //   )
+      // ]),
       body: Container(
         // decoration: BoxDecoration(
         //   // image: DecorationImage(

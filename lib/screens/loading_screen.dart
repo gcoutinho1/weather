@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:weather/screens/location_screen.dart';
+import 'package:weather/screens/home_screen.dart';
 import 'package:weather/services/weather.dart';
 
 class LoadingScreen extends StatefulWidget {
@@ -34,7 +34,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => LocationScreen(
+        builder: (context) => HomeScreen(
           locationWeather: weatherData,
         ),
       ),

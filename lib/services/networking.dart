@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 class NetWorkHelper {
   final String url;
   //TODO: implement error handling correctly
+  //TODO: check if has internet_connection
 
   NetWorkHelper(this.url);
 
@@ -15,9 +16,10 @@ class NetWorkHelper {
         String data = response.body;
         var decodedData = jsonDecode(data);
         return decodedData;
-      } else {
-        print('Não foi possível se conectar a API ${response.statusCode}');
-      }
+      } 
+      // else {
+      //   print('Não foi possível se conectar a API ${response.statusCode}');
+      // }
     } catch (e) {
       throw Exception(
           'Não foi possível se conectar a API ${response.statusCode}');
