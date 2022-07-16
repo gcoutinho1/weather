@@ -1,28 +1,44 @@
 import 'dart:convert';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:http/http.dart' as http;
 
 class NetWorkHelper {
   final String url;
   //TODO: implement error handling correctly
-  //TODO: check if has internet_connection
 
   NetWorkHelper(this.url);
 
   Future getData() async {
-    http.Response response = await http.get(Uri.parse(url));
+    // http.Response response = await http.get(Uri.parse(url));
     try {
+      http.Response response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         String data = response.body;
         var decodedData = jsonDecode(data);
         return decodedData;
-      } 
-      // else {
-      //   print('Não foi possível se conectar a API ${response.statusCode}');
-      // }
+      }
     } catch (e) {
-      throw Exception(
-          'Não foi possível se conectar a API ${response.statusCode}');
+      print(e);
+      // throw Exception(
+      //     'Não foi possível se conectar a API ${response.statusCode}');
+    }
+  }
+
+  checkConnection () async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    // var weatherData = await WeatherModel().getLocationWeather();
+    if (connectivityResult == ConnectivityResult.mobile) {
+      // I am connected to a mobile network.
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => HomeScreen(locationWeather: weatherData,)));
+    } else if (connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a wifi network.
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => HomeScreen(locationWeather: weatherData,)));
+    } else if (connectivityResult == ConnectivityResult.none) {
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => OfflineScreen()));
     }
   }
 }

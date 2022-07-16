@@ -1,6 +1,8 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:weather/screens/city_screen.dart';
+import 'package:weather/screens/offline_screen.dart';
+import 'package:weather/screens/search_screen.dart';
 import 'package:weather/services/weather.dart';
 
 import '../utils/constants.dart';
@@ -22,8 +24,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    super.initState();
+    // checkConnectionInternet();
     updateUI(widget.locationWeather);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   void updateUI(dynamic weatherData) {
@@ -88,20 +96,21 @@ class _HomeScreenState extends State<HomeScreen> {
                       size: 50,
                     ),
                     onPressed: () async {
+                      checkConnectionInternet();
                       var weatherData = await weatherModel.getLocationWeather();
                       updateUI(weatherData);
                     },
                   ),
                   IconButton(
                     icon: const Icon(
-                      Icons.location_city,
+                      Icons.search,
                       size: 50,
                     ),
                     onPressed: () async {
                       var typedCity = await Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const CityScreen()));
+                              builder: (context) => const SearchScreen()));
                       // print(typedCity);
                       if (typedCity != null) {
                         var weatherData =
@@ -110,6 +119,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       }
                     },
                   ),
+                  // IconButton(
+                  //   onPressed: () {
+                  //     Navigator.push(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //             builder: (context) => const OfflineScreen()));
+                  //   },
+                  //   icon: Icon(Icons.local_activity),
+                  // ),
                 ],
               ),
               Padding(
@@ -141,5 +159,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  Future checkConnectionInternet() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.none) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => OfflineScreen()));
+    }
   }
 }

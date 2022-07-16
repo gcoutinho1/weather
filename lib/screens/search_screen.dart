@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:weather/utils/constants.dart';
 // import 'package:clima/utilities/constants.dart';
 
-class CityScreen extends StatefulWidget {
-  const CityScreen({Key? key}) : super(key: key);
+class SearchScreen extends StatefulWidget {
+  const SearchScreen({Key? key}) : super(key: key);
 
   @override
-  _CityScreenState createState() => _CityScreenState();
+  _SearchScreenState createState() => _SearchScreenState();
 }
 
-class _CityScreenState extends State<CityScreen> {
+class _SearchScreenState extends State<SearchScreen> {
   late String cityName;
 
   @override
