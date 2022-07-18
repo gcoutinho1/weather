@@ -13,18 +13,18 @@ class OfflineScreen extends StatefulWidget {
 class _OfflineScreenState extends State<OfflineScreen> {
   @override
   Widget build(BuildContext context) {
-    //TODO: implements refresh
+    
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Sem conexão"),
+            const Text("Sem conexão com a internet"),
             ElevatedButton(
                 onPressed: () async {
                   checkConnectionInternet();
                 },
-                child: Text("Atualizar")),
+                child: const Text("Atualizar")),
           ],
         ),
       ),
@@ -32,17 +32,23 @@ class _OfflineScreenState extends State<OfflineScreen> {
   }
 
   void checkConnectionInternet() async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
+    var connectivity = await (Connectivity().checkConnectivity());
     var weatherData = await WeatherModel().getLocationWeather();
-    if (connectivityResult == ConnectivityResult.mobile) {
+    if (connectivity == ConnectivityResult.mobile ||
+        connectivity == ConnectivityResult.wifi) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomeScreen(locationWeather: weatherData,)));
-    } else if (connectivityResult == ConnectivityResult.wifi) {
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(
+            locationWeather: weatherData,
+          ),
+        ),
+      );
+    } else if (connectivity == ConnectivityResult.none) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomeScreen(locationWeather: weatherData,)));
-    } else if (connectivityResult == ConnectivityResult.none) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => OfflineScreen()));
+        context,
+        MaterialPageRoute(builder: (context) => const OfflineScreen()),
+      );
     }
   }
 }

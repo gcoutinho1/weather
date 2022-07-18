@@ -10,11 +10,12 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  late String cityName;
+  String? cityName;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       body: Container(
         // decoration: BoxDecoration(
         //   image: DecorationImage(

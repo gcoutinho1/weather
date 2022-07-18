@@ -25,20 +25,4 @@ class NetWorkHelper {
     }
   }
 
-  checkConnection () async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    // var weatherData = await WeatherModel().getLocationWeather();
-    if (connectivityResult == ConnectivityResult.mobile) {
-      // I am connected to a mobile network.
-      // Navigator.push(
-      //     context, MaterialPageRoute(builder: (context) => HomeScreen(locationWeather: weatherData,)));
-    } else if (connectivityResult == ConnectivityResult.wifi) {
-      // I am connected to a wifi network.
-      // Navigator.push(
-      //     context, MaterialPageRoute(builder: (context) => HomeScreen(locationWeather: weatherData,)));
-    } else if (connectivityResult == ConnectivityResult.none) {
-      // Navigator.push(
-      //     context, MaterialPageRoute(builder: (context) => OfflineScreen()));
-    }
-  }
 }

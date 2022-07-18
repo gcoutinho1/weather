@@ -2,7 +2,6 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:weather/screens/offline_screen.dart';
-import 'package:weather/screens/search_screen.dart';
 import 'package:weather/services/weather.dart';
 
 import '../utils/constants.dart';
@@ -16,15 +15,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late String weatherIcon;
-  late String weatherMessage;
+  String? weatherIcon;
+  String? weatherMessage;
   int? tempDescription;
   String? cityDescription;
   WeatherModel weatherModel = WeatherModel();
 
   @override
   void initState() {
-    // checkConnectionInternet();
+    checkConnectionInternet();
     updateUI(widget.locationWeather);
     super.initState();
   }
@@ -56,21 +55,26 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        title: Text("A"),
+      ),
       // bottomNavigationBar: BottomNavigationBar(items: [
       //   BottomNavigationBarItem(
-      //     icon: Icon(
-      //       Icons.near_me,
-      //       // size: 50,
-      //     ),
-      //     label: 'Update'
-      //   ),
+      //       icon: Icon(
+      //         Icons.update_rounded,
+      //         // size: 50,
+      //         color: Colors.white,
+      //       ),
+      //       label: 'Atualizar'),
+
       //   BottomNavigationBarItem(
-      //     icon: Icon(
-      //       Icons.location_city,
-      //       // size: 50,
-      //     ),
-      //     label: 'Pesquisar'
-      //   )
+      //       icon: Icon(
+      //         Icons.search,
+      //         // size: 50,
+      //       ),
+      //       label: 'Pesquisar',
+      //       )
       // ]),
       body: Container(
         // decoration: BoxDecoration(
@@ -87,49 +91,49 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  IconButton(
-                    icon: const Icon(
-                      Icons.near_me,
-                      size: 50,
-                    ),
-                    onPressed: () async {
-                      checkConnectionInternet();
-                      var weatherData = await weatherModel.getLocationWeather();
-                      updateUI(weatherData);
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.search,
-                      size: 50,
-                    ),
-                    onPressed: () async {
-                      var typedCity = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SearchScreen()));
-                      // print(typedCity);
-                      if (typedCity != null) {
-                        var weatherData =
-                            await weatherModel.getCityWeather(typedCity);
-                        updateUI(weatherData);
-                      }
-                    },
-                  ),
-                  // IconButton(
-                  //   onPressed: () {
-                  //     Navigator.push(
-                  //         context,
-                  //         MaterialPageRoute(
-                  //             builder: (context) => const OfflineScreen()));
-                  //   },
-                  //   icon: Icon(Icons.local_activity),
-                  // ),
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: <Widget>[
+              //     IconButton(
+              //       icon: const Icon(
+              //         Icons.near_me,
+              //         size: 50,
+              //       ),
+              //       onPressed: () async {
+              //         checkConnectionInternet();
+              //         var weatherData = await weatherModel.getLocationWeather();
+              //         updateUI(weatherData);
+              //       },
+              //     ),
+              //     IconButton(
+              //       icon: const Icon(
+              //         Icons.search,
+              //         size: 50,
+              //       ),
+              //       onPressed: () async {
+              //         var typedCity = await Navigator.push(
+              //             context,
+              //             MaterialPageRoute(
+              //                 builder: (context) => const SearchScreen()));
+              //         // print(typedCity);
+              //         if (typedCity != null) {
+              //           var weatherData =
+              //               await weatherModel.getCityWeather(typedCity);
+              //           updateUI(weatherData);
+              //         }
+              //       },
+              //     ),
+              //     // IconButton(
+              //     //   onPressed: () {
+              //     //     Navigator.push(
+              //     //         context,
+              //     //         MaterialPageRoute(
+              //     //             builder: (context) => const OfflineScreen()));
+              //     //   },
+              //     //   icon: Icon(Icons.local_activity),
+              //     // ),
+              //   ],
+              // ),
               Padding(
                 padding: const EdgeInsets.only(left: 15),
                 child: Row(
@@ -139,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: GoogleFonts.roboto(fontSize: 100),
                     ),
                     Text(
-                      weatherIcon,
+                      weatherIcon!,
                       // '☀️',
                       style: kConditionTextStyle,
                     ),
@@ -162,10 +166,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future checkConnectionInternet() async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.none) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => OfflineScreen()));
+    var connectivity = await (Connectivity().checkConnectivity());
+    if (connectivity == ConnectivityResult.none) {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const OfflineScreen()));
     }
   }
 }
