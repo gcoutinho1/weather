@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:weather/screens/loading_screen.dart';
 
+/// Created by Guilherme Coutinho © 2022
+/// 4FUN
+
 void main() {
   runApp(const MyApp());
 }

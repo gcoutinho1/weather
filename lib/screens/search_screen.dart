@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather/utils/constants.dart';
+import 'package:weather/widgets/custom_button.dart';
 // import 'package:clima/utilities/constants.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -18,14 +19,14 @@ class _SearchScreenState extends State<SearchScreen> {
       body: Stack(
         children: [
           Image.network(
-            'https://images.pexels.com/photos/1034662/pexels-photo-1034662.jpeg',
+            kSearchBackgroundImage,
             fit: BoxFit.cover,
             height: double.infinity,
             width: double.infinity,
           ),
           SafeArea(
             child: Column(
-              children: <Widget>[
+              children: [
                 Align(
                   alignment: Alignment.topLeft,
                   child: IconButton(
@@ -49,14 +50,11 @@ class _SearchScreenState extends State<SearchScreen> {
                     },
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
+                CustomButton(
+                  buttonText: 'Obter previsão do tempo',
+                  onTap: () {
                     Navigator.pop(context, cityName);
                   },
-                  child: const Text(
-                    'Obter previsão do tempo',
-                    // style: kButtonTextStyle,
-                  ),
                 ),
               ],
             ),
@@ -66,6 +64,3 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 }
-
-/// © 2022
-

@@ -15,8 +15,7 @@ class LoadingScreen extends StatefulWidget {
 class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
-    checkConnectionInternet();
-    getLocationData();
+    getLocationDataAndConnectionStatus();
     super.initState();
   }
 
@@ -32,19 +31,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     );
   }
 
-  void getLocationData() async {
-    var weatherData = await WeatherModel().getLocationWeather();
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => HomeScreen(
-          locationWeather: weatherData,
-        ),
-      ),
-    );
-  }
-
-  void checkConnectionInternet() async {
+  void getLocationDataAndConnectionStatus() async {
     var connectivity = await (Connectivity().checkConnectivity());
     var weatherData = await WeatherModel().getLocationWeather();
     if (connectivity == ConnectivityResult.mobile ||
@@ -57,7 +44,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
           ),
         ),
       );
-    } else if (connectivity == ConnectivityResult.none) {
+    } else {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const OfflineScreen()),

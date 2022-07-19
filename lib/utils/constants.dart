@@ -1,15 +1,5 @@
 import 'package:flutter/material.dart';
 
-const kMessageTextStyle = TextStyle(
-  fontFamily: 'Spartan MB',
-  fontSize: 60,
-);
-
-const kButtonTextStyle = TextStyle(
-  fontSize: 30,
-  fontFamily: 'Spartan MB',
-);
-
 const kConditionTextStyle = TextStyle(
   fontSize: 90,
 );
@@ -17,14 +7,18 @@ const kConditionTextStyle = TextStyle(
 const kTextFieldInput = InputDecoration(
   filled: true,
   fillColor: Colors.white,
-  // icon: Icon(
-  //   Icons.location_city,
-  //   color: Colors.white,
-  // ),
   hintText: 'Digite o nome da cidade',
-  hintStyle: TextStyle(color: Colors.grey),
+  hintStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
   border: OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(16)),
     borderSide: BorderSide.none,
   ),
 );
+
+const kHomeBackgroundImage =
+    'https://images.pexels.com/photos/2873671/pexels-photo-2873671.jpeg';
+
+const kSearchBackgroundImage =
+    'https://images.pexels.com/photos/1034662/pexels-photo-1034662.jpeg';
+
+
