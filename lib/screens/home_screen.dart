@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:weather/screens/offline_screen.dart';
@@ -72,8 +73,10 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Stack(
         children: [
-          Image.network(
-            kHomeBackgroundImage,
+          const Image(
+            image: CachedNetworkImageProvider(
+              kHomeBackgroundImage,
+            ),
             fit: BoxFit.cover,
             height: double.infinity,
             width: double.infinity,
