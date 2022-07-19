@@ -15,53 +15,53 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
-      body: Container(
-        // decoration: BoxDecoration(
-        //   image: DecorationImage(
-        //     image: AssetImage('images/city_background.jpg'),
-        //     fit: BoxFit.cover,
-        //   ),
-        // ),
-        // constraints: BoxConstraints.expand(),
-        child: SafeArea(
-          child: Column(
-            children: <Widget>[
-              Align(
-                alignment: Alignment.topLeft,
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    size: 25,
+      body: Stack(
+        children: [
+          Image.network(
+            'https://images.pexels.com/photos/1034662/pexels-photo-1034662.jpeg',
+            fit: BoxFit.cover,
+            height: double.infinity,
+            width: double.infinity,
+          ),
+          SafeArea(
+            child: Column(
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      size: 25,
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(20),
-                child: TextField(
-                  style: const TextStyle(color: Colors.black),
-                  decoration: kTextFieldInput,
-                  onChanged: (value) {
-                    cityName = value;
-                    // print(value);
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  child: TextField(
+                    style: const TextStyle(color: Colors.black),
+                    decoration: kTextFieldInput,
+                    onChanged: (value) {
+                      cityName = value;
+                      // print(value);
+                    },
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context, cityName);
                   },
+                  child: const Text(
+                    'Obter previsão do tempo',
+                    // style: kButtonTextStyle,
+                  ),
                 ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context, cityName);
-                },
-                child: Text(
-                  'Obter previsão do tempo',
-                  // style: kButtonTextStyle,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

@@ -11,16 +11,16 @@ const kButtonTextStyle = TextStyle(
 );
 
 const kConditionTextStyle = TextStyle(
-  fontSize: 100,
+  fontSize: 90,
 );
 
 const kTextFieldInput = InputDecoration(
   filled: true,
   fillColor: Colors.white,
-  icon: Icon(
-    Icons.location_city,
-    color: Colors.white,
-  ),
+  // icon: Icon(
+  //   Icons.location_city,
+  //   color: Colors.white,
+  // ),
   hintText: 'Digite o nome da cidade',
   hintStyle: TextStyle(color: Colors.grey),
   border: OutlineInputBorder(

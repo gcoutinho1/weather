@@ -25,13 +25,13 @@ class WeatherModel {
 
   String getMessage(int? temp) {
     if (temp != null && temp > 20) {
-      return 'Ta começando a esquentar 👕';
+      return 'Ta começando a esquentar 🔥';
     } else if (temp != null && temp > 25) {
-      return 'Que Calor em, hora de um sorvete 🍦';
+      return 'Ta muito calor em, hora de tomar um sorvete 🍦';
     } else if (temp != null && temp < 10) {
-      return 'Ta ficando friooo, talvez você precise de luvas 🧤';
+      return 'Ta muitoo friooo 🥶';
     } else {
-      return 'Ande com um casaco 🧥';
+      return 'É melhor você andar com uma blusa de frio! 🧥';
     }
   }
 
@@ -40,13 +40,14 @@ class WeatherModel {
     await location.getCurrentLocation();
 
     NetWorkHelper netWorkHelper = NetWorkHelper(
-        '$openWeatherMapURL?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey&units=metric');
+        '$openWeatherMapURL?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey&units=metric&lang=pt_br');
     var weatherData = await netWorkHelper.getData();
     return weatherData;
   }
 
   Future<dynamic> getCityWeather(String cityName) async {
-    var url = '$openWeatherMapURL?q=$cityName&appid=$apiKey&units=metric';
+    var url =
+        '$openWeatherMapURL?q=$cityName&appid=$apiKey&units=metric&lang=pt_br';
     NetWorkHelper netWorkHelper = NetWorkHelper(url);
     var weatherData = await netWorkHelper.getData();
     return weatherData;

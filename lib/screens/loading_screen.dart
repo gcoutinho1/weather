@@ -21,11 +21,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
